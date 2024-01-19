@@ -1,0 +1,78 @@
+# Ignore node files
+node_modules
+dist
+.cache
+
+# Ignore editor workspace files
+.vscode
+.sublime-*
+.atom
+.editorconfig
+.nyc_output
+coverage
+*.lcov
+*.swp
+*.swo
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore version control
+.tool-versions
+.*-version
+
+# Ignore env
+/.env
+.env.local
+compose.override.yml
+
+# Ignore brew
+Brewfile.lock.json
+
+# Compiled class files
+*.class
+
+# SBT specific
+target/
+lib_managed/
+src_managed/
+project/project/
+project/target/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# IntelliJ IDEA specific
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse specific
+.classpath
+.project
+.settings/
+
+# Logs and databases
+*.log
+
+# OS generated files #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Metals - Scala language server
+.metals/
+.bloop/
