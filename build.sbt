@@ -1,4 +1,4 @@
-name := "ExampleConnector"
+name := "ConnectorDemo"
 
 version := "0.1"
 

@@ -1,4 +1,4 @@
-package com.orbservability.connector.example
+package com.orbservability.connector.demo
 
 case class Event(
   followerID: String,

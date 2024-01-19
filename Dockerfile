@@ -41,5 +41,5 @@ RUN sbt clean assembly
 FROM redpandadata/connectors:v1.0.13
 
 # Import the compiled binaries from the first stage.
-COPY --from=builder /usr/src/app/target/scala-*/*.jar /opt/kafka/connect-plugins/example-connector/
+COPY --from=builder /usr/src/app/target/scala-*/*.jar /opt/kafka/connect-plugins/connector-demo/
 COPY --from=builder /opt/kafka/connect-plugins/ /opt/kafka/connect-plugins/

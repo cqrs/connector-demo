@@ -1,4 +1,4 @@
-package com.orbservability.connector.example
+package com.orbservability.connector.demo
 
 import java.util
 import org.apache.kafka.connect.connector.ConnectRecord
