@@ -13,7 +13,7 @@ This demo takes events that simulate the act of a person following another perso
 }
 ```
 
-and sinks them into the followg:
+and sinks them into the following:
 
 - neo4j
 - postgres
