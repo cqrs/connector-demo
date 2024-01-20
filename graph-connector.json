@@ -1,14 +1,12 @@
 {
   "name": "Neo4jSinkConnector",
   "config": {
-    "topics": "events",
+    "topics": "graph",
     "connector.class": "streams.kafka.connect.sink.Neo4jSinkConnector",
-    "transforms": "cud",
-    "transforms.cud.type": "com.orbservability.connector.demo.SampleTransformer",
     "neo4j.server.uri": "bolt://neo4j:7687",
     "neo4j.authentication.basic.username": "${file:/opt/kafka/connect-password/neo4j.properties:username}",
     "neo4j.authentication.basic.password": "${file:/opt/kafka/connect-password/neo4j.properties:password}",
     "neo4j.encryption.enabled": false,
-    "neo4j.topic.cud": "events"
+    "neo4j.topic.cud": "graph"
   }
 }

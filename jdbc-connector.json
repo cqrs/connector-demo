@@ -1,0 +1,13 @@
+{
+  "name": "JDBCSinkConnector",
+  "config": {
+    "topics": "jdbc",
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+    "connection.url": "jdbc:postgres://postgres:3306/sample",
+    "connection.user": "${file:/opt/kafka/connect-password/postgres.properties:username}",
+    "connection.password": "${file:/opt/kafka/connect-password/postgres.properties:password}",
+    "insert.mode": "upsert",
+    "pk.mode": "record_value",
+    "pk.fields": "id"
+  }
+}

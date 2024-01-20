@@ -117,6 +117,9 @@ services:
     volumes:
       - neo4j:/data
 
+  postgres:
+    image: postgres:16
+
 volumes:
   sbt_ivy_cache: {}
   sbt_cache: {}

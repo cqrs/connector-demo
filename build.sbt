@@ -12,9 +12,10 @@ resolvers ++= Seq(
 // Library dependencies
 libraryDependencies ++= Seq(
   "org.apache.kafka" % "connect-api" % "3.6.1",
+  "org.apache.kafka" % "kafka-clients" % "3.6.1",
   "org.apache.kafka" %% "kafka" % "3.6.1",
   "org.playframework" %% "play-json" % "3.0.1",
-  // Add any additional dependencies here
+  "org.apache.kafka" %% "kafka-streams-scala" % "3.6.1",
 )
 
 assembly / assemblyMergeStrategy := {
