@@ -1,5 +1,5 @@
 services:
-  sbt:
+  sbt: &sbt
     tty: true
     stdin_open: true
     build:
@@ -13,6 +13,12 @@ services:
       - sbt_cache:/root/.sbt:cached
       - coursier_cache:/root/.cache/coursier:cached
       - coursier_v1_cache:/root/.coursier/cache/v1:cached
+
+  streams:
+    <<: *sbt
+    depends_on:
+      - redpanda
+    command: run
 
   redpanda:
     image: redpandadata/redpanda:v23.3.1
@@ -80,14 +86,14 @@ services:
 
   connect:
     build:
-      context: .
+      context: ./connect
     ports:
         - 8083:8083
     depends_on:
       - redpanda
     environment:
       CONNECT_BOOTSTRAP_SERVERS: redpanda:9092
-      CONNECT_LOG_LEVEL: debug
+      CONNECT_LOG_LEVEL: info
       CONNECT_METRICS_ENABLED: false
       CONNECT_PLUGIN_PATH: /opt/kafka/connect-plugins
       CONNECT_CONFIGURATION: |
@@ -104,8 +110,8 @@ services:
         config.providers=file
         config.providers.file.class=org.apache.kafka.common.config.provider.FileConfigProvider
     volumes:
-      - ./connect-password/:/opt/kafka/connect-password:ro
-      - ./connect-plugins/:/opt/kafka/connect-plugins:ro
+      - ./connect/password/:/opt/kafka/connect-password:ro
+      - ./connect/plugins/:/opt/kafka/connect-plugins:ro
 
   neo4j:
     image: neo4j:5
@@ -119,6 +125,11 @@ services:
 
   postgres:
     image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
 
 volumes:
   sbt_ivy_cache: {}
@@ -127,3 +138,4 @@ volumes:
   coursier_v1_cache: {}
   redpanda: {}
   neo4j: {}
+  postgres: {}

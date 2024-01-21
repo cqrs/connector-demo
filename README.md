@@ -26,12 +26,20 @@ Then exec into the redpanda instance to create the topic that we'll be using.
 ```sh
 docker compose exec -it redpanda bash
 
-rpk topic create events people graph
+rpk topic create events graph jdbc
 ```
 
 Then from your local host
 
 ```sh
-curl -X POST -H "Content-Type: application/json" --data @neo4j-connector.json http://localhost:8083/connectors
-curl -X POST -H "Content-Type: application/json" --data @jdbc-connector.json http://localhost:8083/connectors
+curl -X POST -H "Content-Type: application/json" --data @connect/neo4j-connector.json http://localhost:8083/connectors
+curl -X POST -H "Content-Type: application/json" --data @connect/jdbc-connector.json http://localhost:8083/connectors
+```
+
+Data can be loaded into Kafka via
+
+```sh
+docker compose exec -it redpanda bash
+
+cat /opt/kafka/data/import.ndjson | rpk topic produce events
 ```

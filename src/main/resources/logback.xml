@@ -1,0 +1,16 @@
+<configuration>
+    <!-- Console appender definition -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Set the default log level to INFO and attach the STDOUT appender -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+    <!-- Change the log level for Kafka to WARN -->
+    <logger name="org.apache.kafka" level="WARN"/>
+</configuration>
