@@ -24,8 +24,6 @@ object Relationship {
   implicit val relationshipNodeWrites: Writes[RelationshipNode] = Json.writes[RelationshipNode]
   implicit val relationshipWrites: Writes[Relationship] = Json.writes[Relationship]
 
-  val jsonSerde: Serde[Relationship] = SerDes.jsonSerde[Relationship]
-
   def forwards(event: Event): Seq[(String, Relationship)] = {
     val relationship = Relationship(
       op = "merge",
