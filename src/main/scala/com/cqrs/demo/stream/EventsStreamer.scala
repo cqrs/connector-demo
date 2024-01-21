@@ -3,9 +3,7 @@ package com.cqrs.demo.stream
 import org.apache.kafka.streams.scala.StreamsBuilder
 import org.apache.kafka.streams.scala.kstream._
 import org.apache.kafka.streams.{KafkaStreams, StreamsConfig}
-import org.apache.kafka.streams.scala.ImplicitConversions._
-import org.apache.kafka.streams.scala.Serdes._
-
+import org.apache.kafka.common.serialization.Serdes
 
 import java.util.Properties
 
@@ -15,24 +13,24 @@ object EventsStreamer {
     props.load(getClass.getClassLoader.getResourceAsStream("kafka-streams.properties"))
 
     val builder = new StreamsBuilder()
-    val sourceStream: KStream[String, String] = builder.stream[String, String]("events")
 
-    // Parse the JSON once
-    val parsedStream: KStream[String, Option[Event]] = sourceStream.mapValues(Event.parseJson _)
+    val sourceStream: KStream[String, Option[Event]] =
+      builder
+        .stream[String, Event]("events")(Consumed.`with`(Serdes.String, Event.jsonSerde))
+        .mapValues(event => Option(event))
 
     // Process and send to 'jdbc' topic
-    parsedStream
-      .flatMap { (_, maybeEvent) =>
-        maybeEvent.map { event => JDBC.forwards(event) }.getOrElse(Seq.empty)
-      }
-      .to("jdbc")
+    sourceStream
+      .flatMap { (_, maybeEvent) => maybeEvent.map(event => Person.forwards(event)).getOrElse(Seq.empty) }
+      .to("people")(Produced.`with`(Serdes.String, Person.jsonSerde))
 
     // Process and send to 'graph' topic
-    parsedStream
-      .flatMap { (_, maybeEvent) =>
-        maybeEvent.map { event => Graph.forwards(event) }.getOrElse(Seq.empty)
-      }
-      .to("graph")
+    sourceStream
+      .flatMap { (_, maybeEvent) => maybeEvent.map(event => Node.forwards(event)).getOrElse(Seq.empty) }
+      .to("graph")(Produced.`with`(Serdes.String, Node.jsonSerde))
+    sourceStream
+      .flatMap { (_, maybeEvent) => maybeEvent.map(event => Relationship.forwards(event)).getOrElse(Seq.empty) }
+      .to("graph")(Produced.`with`(Serdes.String, Relationship.jsonSerde))
 
     // Build and start the Kafka Streams application
     val streams = new KafkaStreams(builder.build(), new StreamsConfig(props))

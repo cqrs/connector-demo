@@ -1,13 +1,19 @@
 {
   "name": "JDBCSinkConnector",
   "config": {
-    "topics": "jdbc",
+    "topics": "people",
     "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
-    "connection.url": "jdbc:postgres://postgres:3306/sample",
+    "connection.url": "jdbc:postgresql://postgres:5432/postgres",
     "connection.user": "${file:/opt/kafka/connect-password/postgres.properties:username}",
     "connection.password": "${file:/opt/kafka/connect-password/postgres.properties:password}",
     "insert.mode": "upsert",
-    "pk.mode": "record_value",
-    "pk.fields": "id"
+    "pk.mode": "record_key",
+    "pk.fields": "record_key",
+    "auto.create": true,
+    "auto.evolve": true,
+    "delete.enabled": true,
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": true
   }
 }

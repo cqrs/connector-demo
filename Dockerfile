@@ -2,6 +2,7 @@ FROM eclipse-temurin:17-jre AS builder
 
 ARG SCALA_VERSION=2.13.12
 ARG SBT_VERSION=1.9.8
+ARG SNAPPY_VERSION=1.1.10.5
 
 RUN apt-get update && apt-get install -y wget && \
     apt-get clean && \
@@ -18,6 +19,9 @@ RUN wget -nv https://downloads.lightbend.com/scala/$SCALA_VERSION/scala-$SCALA_V
 RUN wget -nv https://github.com/sbt/sbt/releases/download/v$SBT_VERSION/sbt-$SBT_VERSION.tgz && \
     tar -xzf sbt-$SBT_VERSION.tgz -C /usr/local --strip-components=1 && \
     rm sbt-$SBT_VERSION.tgz
+
+# Download snappyjava, as the dependency is oddly missing.
+RUN wget -nv https://repo1.maven.org/maven2/org/xerial/snappy/snappy-java/$SNAPPY_VERSION/snappy-java-$SNAPPY_VERSION.jar
 
 WORKDIR /usr/src/app
 

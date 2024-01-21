@@ -26,25 +26,18 @@ Since each event maps to N records in our sinks, it's necessary to stream record
 docker compose up -d
 ```
 
-Create the topic(s).
+Create the topic(s) and add some records:
 
 ```sh
 docker compose exec -it redpanda bash
 
-rpk topic create events graph jdbc
+rpk topic create events graph people
+cat /opt/kafka/data/import.ndjson | rpk topic produce events
 ```
 
-Call the connector API to instantiate the desired sinks.
+Call the connector API to instantiate the desired sinks:
 
 ```sh
 curl -X POST -H "Content-Type: application/json" --data @connect/graph-connector.json http://localhost:8083/connectors
 curl -X POST -H "Content-Type: application/json" --data @connect/jdbc-connector.json http://localhost:8083/connectors
-```
-
-Data can be loaded into Kafka via
-
-```sh
-docker compose exec -it redpanda bash
-
-cat /opt/kafka/data/import.ndjson | rpk topic produce events
 ```

@@ -1,6 +1,7 @@
 package com.cqrs.demo.stream
 
 import play.api.libs.json._
+import org.apache.kafka.common.serialization.Serde
 
 case class Event(
     followerID: String,
@@ -11,13 +12,7 @@ case class Event(
 
 object Event {
   implicit val eventReads: Reads[Event] = Json.reads[Event]
+  implicit val eventWrites: Writes[Event] = Json.writes[Event]
 
-  def parseJson(jsonString: String): Option[Event] = {
-    val json: JsValue = Json.parse(jsonString)
-
-    json.validate[Event] match {
-      case JsSuccess(event, _) => Some(event)
-      case JsError(_)          => None
-    }
-  }
+  val jsonSerde: Serde[Event] = SerDes.jsonSerde[Event]
 }

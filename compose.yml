@@ -15,10 +15,10 @@ services:
       - coursier_v1_cache:/root/.coursier/cache/v1:cached
 
   streams:
-    <<: *sbt
+    build:
+      context: .
     depends_on:
       - redpanda
-    command: run
 
   redpanda:
     image: redpandadata/redpanda:v23.3.1
@@ -97,9 +97,8 @@ services:
       CONNECT_METRICS_ENABLED: false
       CONNECT_PLUGIN_PATH: /opt/kafka/connect-plugins
       CONNECT_CONFIGURATION: |
-        key.converter=org.apache.kafka.connect.storage.StringConverter
-        value.converter=org.apache.kafka.connect.json.JsonConverter
-        value.converter.schemas.enable=false
+        key.converter=org.apache.kafka.connect.converters.ByteArrayConverter
+        value.converter=org.apache.kafka.connect.converters.ByteArrayConverter
         group.id=connectors-group
         offset.storage.topic=_connectors_offsets
         config.storage.topic=_connectors_configs
@@ -111,7 +110,6 @@ services:
         config.providers.file.class=org.apache.kafka.common.config.provider.FileConfigProvider
     volumes:
       - ./connect/password/:/opt/kafka/connect-password:ro
-      - ./connect/plugins/:/opt/kafka/connect-plugins:ro
 
   neo4j:
     image: neo4j:5
@@ -125,9 +123,11 @@ services:
 
   postgres:
     image: postgres:16
+    user: postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
     volumes:
       - postgres:/var/lib/postgresql/data
 

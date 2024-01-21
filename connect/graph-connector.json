@@ -7,6 +7,9 @@
     "neo4j.authentication.basic.username": "${file:/opt/kafka/connect-password/neo4j.properties:username}",
     "neo4j.authentication.basic.password": "${file:/opt/kafka/connect-password/neo4j.properties:password}",
     "neo4j.encryption.enabled": false,
-    "neo4j.topic.cud": "graph"
+    "neo4j.topic.cud": "graph",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": false
   }
 }
