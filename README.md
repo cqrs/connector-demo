@@ -13,7 +13,12 @@ This demo takes events that simulate the act of a person following another perso
 }
 ```
 
-and inserts them in neo4j and postgres.
+and sinks them into the following:
+
+- neo4j
+- postgres
+
+Since each event maps to N records in our sinks, it's necessary to stream records to other topics.
 
 ## Usage
 
@@ -21,7 +26,7 @@ and inserts them in neo4j and postgres.
 docker compose up -d
 ```
 
-Then exec into the redpanda instance to create the topic that we'll be using.
+Create the topic(s).
 
 ```sh
 docker compose exec -it redpanda bash
@@ -29,10 +34,10 @@ docker compose exec -it redpanda bash
 rpk topic create events graph jdbc
 ```
 
-Then from your local host
+Call the connector API to instantiate the desired sinks.
 
 ```sh
-curl -X POST -H "Content-Type: application/json" --data @connect/neo4j-connector.json http://localhost:8083/connectors
+curl -X POST -H "Content-Type: application/json" --data @connect/graph-connector.json http://localhost:8083/connectors
 curl -X POST -H "Content-Type: application/json" --data @connect/jdbc-connector.json http://localhost:8083/connectors
 ```
 
