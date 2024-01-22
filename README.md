@@ -45,3 +45,5 @@ Call the connector API to instantiate the desired sinks:
 curl -X POST -H "Content-Type: application/json" --data @connect/graph-connector.json http://localhost:8083/connectors
 curl -X POST -H "Content-Type: application/json" --data @connect/jdbc-connector.json http://localhost:8083/connectors
 ```
+
+Check out the console at <http://localhost:8080/>
