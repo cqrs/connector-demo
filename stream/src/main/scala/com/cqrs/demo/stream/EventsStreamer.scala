@@ -20,12 +20,10 @@ object EventsStreamer {
       builder
         .stream[String, Event]("events")
 
-    // Process and send to 'jdbc' topic
+    // Forward to other topics
     sourceStream
       .flatMap((_, event) => Person.forwards(event))
       .to("people")
-
-    // Process and send to 'graph' topic
     sourceStream
       .flatMap((_, event) => Node.forwards(event))
       .to("graph")
