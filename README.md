@@ -57,7 +57,7 @@ rpk topic create events graph people
 cat /opt/kafka/data/import.ndjson | rpk topic produce events
 exit
 
-# The streams service likely failed due to missing topics. Restart.
+# The stream service likely failed due to missing topics. Restart.
 docker compose up -d
 ```
 
