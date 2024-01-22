@@ -6,10 +6,10 @@ This demo captures commands of a person following another person:
 
 ```json
 {
-  "followerID":"1",
-  "followerName":"Sue",
-  "followeeID":"2",
-  "followeeName":"Bob"
+  "followerID": "1",
+  "followerName": "Sue",
+  "followeeID": "2",
+  "followeeName": "Bob"
 }
 ```
 
@@ -24,19 +24,19 @@ The data that we'll want to query is going to be:
   ```
 
   1 command corresponds to 2 records in SQL.
-  
+
 - graph (neo4j)
 
   each person, and their relationships
 
-   ```cql
-   MATCH (person:Person)
-   RETURN person
-   ```
-   
-   1 command corresponds to 2 nodes and 1 relationship in Cypher.
+  ```cql
+  MATCH (person:Person)
+  RETURN person
+  ```
 
-Since each incoming command maps to N records in each sink, it's necessary to perform some ETL and stream the records to other topics. The pertinent code for this is in [stream](./stream). 
+  1 command corresponds to 2 nodes and 1 relationship in Cypher.
+
+Since each incoming command maps to N records in each sink, it's necessary to perform some ETL and stream the records to other topics. The pertinent code for this is in [stream](./stream).
 
 Once the data is in the format that each of the Connectors expect, the sinks will simply do their thing, read from their assigned topics, and insert the data into their appropriate databases. There's no code for this, and only configuration in [connect](./connect).
 
@@ -68,4 +68,4 @@ curl -X POST -H "Content-Type: application/json" --data @connect/graph-connector
 curl -X POST -H "Content-Type: application/json" --data @connect/jdbc-connector.json http://localhost:8083/connectors
 ```
 
-Check out the Redpanda console at <http://localhost:8080/>
+Check out the [Redpanda console](http://localhost:8080/)!
