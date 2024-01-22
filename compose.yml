@@ -3,20 +3,20 @@ services:
     tty: true
     stdin_open: true
     build:
-      context: .
+      context: ./stream
       target: builder
     entrypoint: sbt
     command: help
     volumes:
-      - .:/usr/src/app:delegated
+      - ./stream:/usr/src/app:delegated
       - sbt_ivy_cache:/root/.ivy2:cached
       - sbt_cache:/root/.sbt:cached
       - coursier_cache:/root/.cache/coursier:cached
       - coursier_v1_cache:/root/.coursier/cache/v1:cached
 
-  streams:
+  stream:
     build:
-      context: .
+      context: ./stream
     depends_on:
       - redpanda
 
