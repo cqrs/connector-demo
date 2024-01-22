@@ -76,3 +76,4 @@ Thumbs.db
 # Metals - Scala language server
 .metals/
 .bloop/
+.bsp

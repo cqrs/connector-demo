@@ -1,7 +1,6 @@
 package com.cqrs.demo.stream
 
 import play.api.libs.json._
-import org.apache.kafka.common.serialization.Serde
 
 case class Node(
     op: String,
@@ -20,8 +19,6 @@ object Node {
   implicit val idsWrites: Writes[IDs] = Json.writes[IDs]
   implicit val nodePropertiesWrites: Writes[NodeProperties] = Json.writes[NodeProperties]
   implicit val nodeWrites: Writes[Node] = Json.writes[Node]
-
-  val jsonSerde: Serde[Node] = SerDes.jsonSerde[Node]
 
   def forwards(event: Event): Seq[(String, Node)] = {
     val node1 = Node(
