@@ -39,8 +39,7 @@ Brewfile.lock.json
 target/
 lib_managed/
 src_managed/
-project/project/
-project/target/
+project/
 
 # Package Files #
 *.jar
