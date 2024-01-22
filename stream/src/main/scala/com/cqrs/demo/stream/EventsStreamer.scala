@@ -14,22 +14,14 @@ object EventsStreamer {
     val props = new Properties()
     props.load(getClass.getClassLoader.getResourceAsStream("kafka-streams.properties"))
 
+    // Consume from a single topic
     val builder = new StreamsBuilder()
+    val sourceStream: KStream[String, Event] = builder.stream[String, Event]("events")
 
-    val sourceStream: KStream[String, Event] =
-      builder
-        .stream[String, Event]("events")
-
-    // Forward to other topics
-    sourceStream
-      .flatMap((_, event) => Person.forwards(event))
-      .to("people")
-    sourceStream
-      .flatMap((_, event) => Node.forwards(event))
-      .to("graph")
-    sourceStream
-      .flatMap((_, event) => Relationship.forwards(event))
-      .to("graph")
+    // Produce to other topics
+    sourceStream.flatMap((_, event) => Person.forwards(event)).to("people")
+    sourceStream.flatMap((_, event) => Node.forwards(event)).to("graph")
+    sourceStream.flatMap((_, event) => Relationship.forwards(event)).to("graph")
 
     // Build and start the Kafka Streams application
     val streams = new KafkaStreams(builder.build(), new StreamsConfig(props))
