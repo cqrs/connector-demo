@@ -42,6 +42,8 @@ Once the data is in the format that each of the Connectors expect, the sinks wil
 
 ## Usage
 
+Start the services:
+
 ```sh
 docker compose up -d
 ```
