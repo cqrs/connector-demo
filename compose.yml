@@ -88,9 +88,7 @@ services:
     build:
       context: ./connect
     ports:
-        - 8083:8083
-    depends_on:
-      - redpanda
+      - 8083:8083
     environment:
       CONNECT_BOOTSTRAP_SERVERS: redpanda:9092
       CONNECT_LOG_LEVEL: info
@@ -110,6 +108,8 @@ services:
         config.providers.file.class=org.apache.kafka.common.config.provider.FileConfigProvider
     volumes:
       - ./connect/password/:/opt/kafka/connect-password:ro
+    depends_on:
+      - redpanda
 
   neo4j:
     image: neo4j:5
