@@ -2,7 +2,16 @@
 
 ## Introduction
 
-In the ever-evolving world of data, Apache Kafka has emerged as a leading platform for handling real-time data streams. It is powerful yet can seem daunting to newcomers. One key feature of Kafka is its ability to connect with various data **sources** and **sinks** via Kafka Connect. This guide will walk you through what Kafka Connect is and how you can set it up, even if you're starting from scratch. While Kafka Connect is great for moving data between Kafka and external systems, it's often necessary to include Kafka Streams - which plays a crucial role in processing and manipulating data _within_ Kafka.
+In the ever-evolving world of data, [Apache Kafka API](https://kafka.apache.org/) has emerged as a leading platform for handling real-time data streams. It is powerful yet can seem daunting to newcomers. Kafka has fostered an extensive ecosystem around its APIs, with numerous tools, extensions, and third-party integrations. The Kafka API has become a standard for other systems; many technologies now offer Kafka-compatible APIs to integrate seamlessly with the Kafka ecosystem. Several implementations exist with both self-hosting and SaaS (Sofware as a Service) options:
+
+- [Confluent](https://www.confluent.io/)
+- [Redpanda](https://redpanda.com/)
+- [Azure Event Hubs](https://azure.microsoft.com/en-us/products/event-hubs)
+- [Amazon Managed Streaming for Apache Kafka (MSK)](https://aws.amazon.com/msk)
+- [IBM Event Streams](https://www.ibm.com/products/event-automation)
+- [Aiven](https://aiven.io/kafka)
+
+One key feature of Kafka is its ability to connect with various data **sources** and **sinks** via Kafka Connect. While Kafka Connect is great for moving data between Kafka and external systems, it's often necessary to include Kafka Streams - which plays a crucial role in processing and manipulating data _within_ Kafka. This guide will walk you through just what Kafka Connect and Streams are all about, and how you can set them up, even if you're starting from scratch.
 
 ## What is Kafka Connect?
 
