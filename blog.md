@@ -2,7 +2,9 @@
 
 ## Introduction
 
-In the ever-evolving world of data, [Apache Kafka API](https://kafka.apache.org/) has emerged as a leading platform for handling real-time data streams. It is powerful yet can seem daunting to newcomers. Kafka has fostered an extensive ecosystem around its APIs, with numerous tools, extensions, and third-party integrations. The Kafka API has become a standard for other systems; many technologies now offer Kafka-compatible APIs to integrate seamlessly with the Kafka ecosystem. Several implementations exist with both self-hosting and SaaS (Sofware as a Service) options:
+In the ever-evolving world of data, [Apache Kafka API](https://kafka.apache.org/) has emerged as a leading platform for handling real-time data streams. It is powerful yet can seem daunting to newcomers. 
+
+Kafka has fostered an extensive ecosystem around its APIs, with numerous tools, extensions, and third-party integrations. Its API has become a standard for other systems; many technologies now offer Kafka-compatible APIs to integrate seamlessly with the Kafka ecosystem. Several implementations exist with both self-hosting and SaaS (Sofware as a Service) options:
 
 - [Confluent](https://www.confluent.io/)
 - [Redpanda](https://redpanda.com/)
